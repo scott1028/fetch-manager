@@ -28,7 +28,6 @@ export default [
     plugins: [
       resolve(),
       commonJs(),
-      ...config.plugins
     ],
   },
   {

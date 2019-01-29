@@ -11,15 +11,15 @@
 </style>
 <body>
   <button onclick="emitFetch();">
-    emitFetch
+    Fetch(pending mode)
   </button>
   <br /><br />
   <button onclick="setSessionValidMessage();">
-    postMessage('token-renewed')
+    cancel pending(perform fetch)
   </button>
   <br /><br />
   <button onclick="session.expired = true;" style="background: green; color: honeydew;">
-    set session expired
+    set pending mode
   </button>
   <script>
     // mock session
@@ -28,13 +28,15 @@
       value: 'my-token',
     };
 
+    const pendAction = () => session.expired;
+
     const setSessionValidMessage = () => {
       session.expired = false;
-      done();
+      perform();
     }
 
     // config fetch in manager
-    const { done, fetch: fetchApi } = fetchManager(fetch, () => !session.expired)
+    const { perform, fetch: fetchApi } = fetchManager(fetch, pendAction)
 
     // test-case
     const emitFetch = () => {
